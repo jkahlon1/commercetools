@@ -13,7 +13,7 @@ import java.util.concurrent.ExecutionException;
 import static handson.impl.ClientService.createApiClient;
 import static handson.impl.ClientService.getProjectKey;
 
-public class Task02c_STORE_API_CREDS {
+public class Task03a_STORE_API_CREDS {
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 
@@ -25,7 +25,8 @@ public class Task02c_STORE_API_CREDS {
             
             final String storeKey = "boston-store";
             
-            final String scopeString = "manage_discount_codes:projectKey manage_states:projectKey manage_customers:projectKey:storeKey manage_categories:projectKey manage_cart_discounts:projectKey:storeKey manage_import_containers:projectKey manage_tax_categories:projectKey manage_product_selections:projectKey manage_payments:projectKey view_project_settings:projectKey manage_types:projectKey manage_customer_groups:projectKey view_shipping_methods:projectKey manage_connectors_deployments:projectKey manage_stores:projectKey view_published_products:projectKey manage_order_edits:projectKey manage_connectors:projectKey manage_extensions:projectKey manage_orders:projectKey:storeKey manage_subscriptions:projectKey";
+            final String scopeString = "manage_discount_codes:projectKey " +
+                    "manage_states:projectKey manage_customers:projectKey:storeKey manage_categories:projectKey manage_cart_discounts:projectKey:storeKey manage_import_containers:projectKey manage_tax_categories:projectKey manage_product_selections:projectKey manage_payments:projectKey view_project_settings:projectKey manage_types:projectKey manage_customer_groups:projectKey view_shipping_methods:projectKey manage_connectors_deployments:projectKey manage_stores:projectKey view_published_products:projectKey manage_order_edits:projectKey manage_connectors:projectKey manage_extensions:projectKey manage_orders:projectKey:storeKey manage_subscriptions:projectKey";
 
             final String scope = scopeString.replaceAll("projectKey", projectKey)
                     .replaceAll("storeKey", storeKey);

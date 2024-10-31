@@ -152,7 +152,7 @@ public class OrderService {
                     .execute();
         }
 
-        public CompletableFuture<ApiHttpResponse<Order>> changeOrderNumber(
+        public CompletableFuture<ApiHttpResponse<Order>> setOrderNumber(
                 final ApiHttpResponse<Order> orderApiHttpResponse) {
 
             Order order = orderApiHttpResponse.getBody();

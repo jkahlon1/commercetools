@@ -17,9 +17,9 @@ import static handson.impl.ClientService.createApiClient;
 import static handson.impl.ClientService.getStoreKey;
 
 
-public class Task03b_ORDER {
+public class Task04b_ORDER {
 
-    private static final Logger log = LoggerFactory.getLogger(Task03b_ORDER.class);
+    private static final Logger log = LoggerFactory.getLogger(Task04b_ORDER.class);
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 
@@ -68,46 +68,46 @@ public class Task03b_ORDER {
 //            // TODO: ADD shipping address from customer profile
 //            // TODO Add a new address if no default shipping address found
 //            //
-//            customerService
-//                    .getCustomerByKey(customerKey)
-//                    .thenApply(ApiHttpResponse::getBody)
-//                    .thenApply(customer -> customer.getAddresses().stream()
-//                            .filter(address -> address.getId().equals(customer.getDefaultShippingAddressId()))
-//                            .findFirst()
-//                    )
-//                    .thenAccept(optionalAddress -> {
-//                        Address shippingAddress = optionalAddress.orElseGet(() -> AddressBuilder.of()
-//                                .firstName("First")
-//                                .lastName("Tester")
-//                                .country("DE")
-//                                .key(customerKey + "-default")
-//                                .build()
-//                        );
-//                        if(!optionalAddress.isPresent()) {
-//                            try {
-//                                logger.info("Customer address added and set as default billing and shipping address:"
-//                                        + customerService.addAddressToCustomer(customerKey, shippingAddress)
-//                                        .get().getBody().getEmail()
-//                                );
-//                            } catch (Exception e) {throw new RuntimeException(e);}
-//                        }
-//
-//                        cartService.getCartById(cartId)
-//                                .thenComposeAsync(cartApiHttpResponse -> cartService.addShippingAddress(cartApiHttpResponse, shippingAddress))
-//                                .thenComposeAsync(cartService::setShipping)
-//                                .thenComposeAsync(cartService::recalculate)
-//                                .thenAccept(cartApiHttpResponse -> {
-//                                    logger.info("cart updated with shipping info {}", cartApiHttpResponse.getBody().getId());
-//                                })
-//                                .exceptionally(throwable -> {
-//                                    logger.error("Exception: {}", throwable.getMessage());
-//                                    return null;
-//                                }).join();
-//                    })
-//                    .exceptionally(ex -> {
-//                        logger.error("Error retrieving customer: {}", ex.getMessage());
-//                        return null;
-//                    }).join();
+            customerService
+                    .getCustomerByKey(customerKey)
+                    .thenApply(ApiHttpResponse::getBody)
+                    .thenApply(customer -> customer.getAddresses().stream()
+                            .filter(address -> address.getId().equals(customer.getDefaultShippingAddressId()))
+                            .findFirst()
+                    )
+                    .thenAccept(optionalAddress -> {
+                        Address shippingAddress = optionalAddress.orElseGet(() -> AddressBuilder.of()
+                                .firstName("First")
+                                .lastName("Tester")
+                                .country("DE")
+                                .key(customerKey + "-default")
+                                .build()
+                        );
+                        if(!optionalAddress.isPresent()) {
+                            try {
+                                logger.info("Customer address added and set as default billing and shipping address:"
+                                        + customerService.addAddressToCustomer(customerKey, shippingAddress)
+                                        .get().getBody().getEmail()
+                                );
+                            } catch (Exception e) {throw new RuntimeException(e);}
+                        }
+
+                        cartService.getCartById(cartId)
+                                .thenComposeAsync(cartApiHttpResponse -> cartService.addShippingAddress(cartApiHttpResponse, shippingAddress))
+                                .thenComposeAsync(cartService::setShipping)
+                                .thenComposeAsync(cartService::recalculate)
+                                .thenAccept(cartApiHttpResponse -> {
+                                    logger.info("cart updated with shipping info {}", cartApiHttpResponse.getBody().getId());
+                                })
+                                .exceptionally(throwable -> {
+                                    logger.error("Exception: {}", throwable.getMessage());
+                                    return null;
+                                }).join();
+                    })
+                    .exceptionally(ex -> {
+                        logger.error("Error retrieving customer: {}", ex.getMessage());
+                        return null;
+                    }).join();
 
 //            // TODO ADD Payment to the cart
 //            //
@@ -137,18 +137,18 @@ public class Task03b_ORDER {
 //                        }
 //                    )
 //                    .thenComposeAsync(orderService::createOrder)
-//                    // orderService.getOrderByOrderNumber(orderNumber)
-//                    .thenComposeAsync(orderApiHttpResponse -> orderService.changeState(
-//                            orderApiHttpResponse,
-//                            OrderState.CONFIRMED
-//                    ))
-//                    .thenAccept(orderApiHttpResponse ->
-//                            logger.info("Order placed {}", orderApiHttpResponse.getBody().getOrderNumber())
-//                    )
-//                    .exceptionally(throwable -> {
-//                        logger.error("Exception: {}", throwable.getMessage());
-//                        return null;
-//                    }).join();
+                     orderService.getOrderByOrderNumber(orderNumber)
+                    .thenComposeAsync(orderApiHttpResponse -> orderService.changeState(
+                            orderApiHttpResponse,
+                            OrderState.CONFIRMED
+                    ))
+                    .thenAccept(orderApiHttpResponse ->
+                            logger.info("Order placed {}", orderApiHttpResponse.getBody().getOrderNumber())
+                    )
+                    .exceptionally(throwable -> {
+                        logger.error("Exception: {}", throwable.getMessage());
+                        return null;
+                    }).join();
         }
     }
 }

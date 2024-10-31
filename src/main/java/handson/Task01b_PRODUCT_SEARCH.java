@@ -24,53 +24,44 @@ public class Task01b_PRODUCT_SEARCH {
         try (ProjectApiRoot apiRoot = createApiClient(apiClientPrefix)) {
             Logger logger = LoggerFactory.getLogger("commercetools");
 
-            Category seedCategory = apiRoot
-                    .categories()
-                    .withKey("home-decor")
+            Category furnitureCategory = apiRoot.categories()
+                    .withKey("furniture")
                     .get()
-                    .execute()
-                    .get()
-                    .getBody();
-
-            // to get categoryReference
-            CategoryReference seedCategoryReference =
-                    CategoryReferenceBuilder.of()
-                            .id(seedCategory.getId())
-                            .build();
+                    .execute().get().getBody();
 
             // filter from product projection query response
 
             // the effective filter from the search response
             // params found in the product projection search https://docs.commercetools.com/api/projects/products-search#search-productprojections
             ProductProjectionPagedSearchResponse productProjectionPagedSearchResponse = apiRoot
-                    // TODO Get all products
-                    .productProjections()
-                    .search()
-                    .get()
-                    .withStaged(false)
+                // TODO Get all products
+                .productProjections().search()
+                .get()
+                .withStaged(false)
 
-                    // TODO Restrict on category plant-seeds
-                    .withMarkMatchingVariants(true)
-                    .withFilterQuery("categories.id:\"" + seedCategoryReference.getId() + "\"")
+                // TODO Restrict on category home-decor
+                .withMarkMatchingVariants(true)
+                .withFilterQuery("categories.id:\"" + furnitureCategory.getId() + "\"")
 
-                    // TODO Get all Facets for Enum size and Number weight_in_kg
+                // TODO Get all Facets for Enum color and finish
 
-                    .withFacet("variants.attributes.color.en-US")
-                    .addFacet("variants.attributes.color.de-DE")
-                    .addFacet("variants.attributes.finish.en-US")
-                    .addFacet("variants.attributes.finish.de-DE")
+                .withFacet("variants.attributes.color.en-US as Color-EN")
+                .addFacet("variants.attributes.color.de-DE as Color-DE")
+                .addFacet("variants.attributes.finish.en-US as Finish-EN")
+                .addFacet("variants.attributes.finish.de-DE as Finish-DE")
+                .addFacet("variants.price.centAmount:range (1000 to 10000),(10000 to 100000),(100000 to *) as Prices")
 
+                // TODO Give price range on products with no effect on facets
+                // .withFilter("variants.price.centAmount:range (1000 to 100000)")
 
-                    // TODO Give price range on products with no effect on facets
-                    // .withFilter("variants.price.centAmount:range (100 to 100000)")
-                    // TODO: with effect on facets
-                    //                 .addFilterQuery("variants.price.centAmount:range (100 to 100000)")
+                // TODO: with effect on facets
+                // .addFilterQuery("variants.price.centAmount:range (1000 to 100000)")
+                // .addFilterQuery("variants.attributes.color.en-US:\"Golden Rod:#DAA520\"")
 
-                    // TODO: Simulate click on facet box from attribute size
-                    //.withFilterFacets("variants.attributes.size:\"box\"")
-                    .executeBlocking()
-                    .getBody();
-
+                // TODO: Simulate click on facet White:#FFFFFF or Golden Rod:#DAA520 from attribute color
+                // .withFilterFacets("variants.attributes.color.en-US:\"Golden Rod:#DAA520\"")
+                .executeBlocking()
+                .getBody();
 
             int size = productProjectionPagedSearchResponse.getResults().size();
             logger.info("No. of products: " + size);
@@ -83,12 +74,12 @@ public class Task01b_PRODUCT_SEARCH {
             for (String facet: productProjectionPagedSearchResponse.getFacets().values().keySet()){
                 FacetResult facetResult = productProjectionPagedSearchResponse.getFacets().withFacetResults(FacetResultsAccessor::asFacetResultMap).get(facet);
                 if (facetResult instanceof RangeFacetResult) {
-                    logger.info("No. of Ranges: {}", ((RangeFacetResult)facetResult).getRanges().size());
-                    logger.info("Facet Result: {}", ((RangeFacetResult)facetResult).getRanges().stream().map(facetResultRange -> facetResultRange.getFromStr() + " to " + facetResultRange.getToStr() + ": " + facetResultRange.getCount()).collect(Collectors.toList()));
+                    logger.info("{} ranges: {}", facet ,((RangeFacetResult)facetResult).getRanges().size());
+                    logger.info("Facet counts: {}", ((RangeFacetResult)facetResult).getRanges().stream().map(facetResultRange -> facetResultRange.getFromStr() + " to " + facetResultRange.getToStr() + ": " + facetResultRange.getCount()).collect(Collectors.toList()));
                 }
                 else if (facetResult instanceof TermFacetResult) {
-                    logger.info("No. of Terms: {}", ((TermFacetResult)facetResult).getTerms().size());
-                    logger.info("Facet Result: {}", ((TermFacetResult)facetResult).getTerms().stream().map(facetResultTerm -> facetResultTerm.getTerm() + ": " + facetResultTerm.getCount()).collect(Collectors.joining(", ")));
+                    logger.info("{} terms: {}", facet, ((TermFacetResult)facetResult).getTerms().size());
+                    logger.info("Facet counts: {}", ((TermFacetResult)facetResult).getTerms().stream().map(facetResultTerm -> facetResultTerm.getTerm() + ": " + facetResultTerm.getCount()).collect(Collectors.joining(", ")));
                 }
             }
 

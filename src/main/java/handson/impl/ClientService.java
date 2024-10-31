@@ -114,32 +114,6 @@ public class ClientService {
     }
 
 
-    public static ProjectApiRoot createStoreMeApiClient(final String prefix) throws IOException {
-
-        Properties props = new Properties();
-        props.load(ClientService.class.getResourceAsStream("/dev.properties"));
-
-        String projectKey = props.getProperty(prefix + "projectKey");
-        String storeKey = props.getProperty(prefix + "storeKey");
-        String storeCustomerEmail = props.getProperty(prefix + "customerEmail");
-        String storeCustomerPassword = props.getProperty(prefix + "customerPassword");
-        String clientId = props.getProperty(prefix + "clientId");
-        String clientSecret = props.getProperty(prefix + "clientSecret");
-
-        return ApiRootBuilder.of().defaultClient(ServiceRegion.GCP_EUROPE_WEST1.getApiUrl())
-            .withGlobalCustomerPasswordFlow(
-                ClientCredentials.of()
-                    .withClientId(clientId)
-                    .withClientSecret(clientSecret)
-                    .build(),
-                storeCustomerEmail,
-                storeCustomerPassword,
-            ServiceRegion.GCP_EUROPE_WEST1.getAuthUrl() + "/oauth/" + projectKey + "/in-store/key=" + storeKey + "/customers/token"
-                )
-                .build(projectKey);
-    }
-
-
     public static AuthenticationToken getTokenForClientCredentialsFlow(final String prefix) throws IOException {
 
         Properties props = new Properties();

@@ -22,8 +22,8 @@ public class Task02b_UPDATE {
             Logger logger = LoggerFactory.getLogger("commercetools");
 
 
-          // TODO: Assign Product Selection to your store
-          //
+            // TODO: UPDATE product categories
+            //
             Product product = apiRoot.products()
                     .withKey("emerald-velvet-chair")
                     .get()
