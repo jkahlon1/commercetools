@@ -42,8 +42,13 @@ public class Task01a_GET_QUERY {
                 Project project = apiRoot.get().executeBlocking().getBody();
                 logger.info("Project key: {}", project.getKey());
 
+                // TODO CHECK if a tax category exists
+                //
+
+
                 // TODO: GET tax categories
                 //
+
 
                 // TODO: GET a Tax category by Key
                 //

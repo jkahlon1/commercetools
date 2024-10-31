@@ -40,13 +40,7 @@ public class StoreService {
     public CompletableFuture<ApiHttpResponse<ProductsInStorePagedQueryResponse>> getProductsInCurrentStore() {
 
         return
-                apiRoot
-                        .inStore(storeKey)
-                        .productSelectionAssignments()
-                        .get()
-                        .addExpand("product")
-                        .addExpand("productSelection")
-                        .execute();
+                null;
     }
 
     public CompletableFuture<ApiHttpResponse<GraphQLResponse>> getProductsInStore(final String storeKey) {

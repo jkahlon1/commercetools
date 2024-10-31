@@ -1,23 +1,14 @@
 package handson;
 
 import com.commercetools.api.client.ProjectApiRoot;
-import com.commercetools.api.models.common.LocalizedStringBuilder;
 import com.commercetools.api.models.customer.Customer;
-import com.commercetools.api.models.customer.CustomerSetCustomFieldActionBuilder;
-import com.commercetools.api.models.customer.CustomerSetCustomTypeActionBuilder;
 import com.commercetools.api.models.order.Order;
-import com.commercetools.api.models.order.OrderSetCustomFieldActionBuilder;
-import com.commercetools.api.models.order.OrderSetCustomTypeActionBuilder;
-import com.commercetools.api.models.type.*;
 import handson.impl.ApiPrefixHelper;
-import io.vrap.rmf.base.client.ApiHttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -25,7 +16,7 @@ import static handson.impl.ClientService.createApiClient;
 import static handson.impl.ClientService.getStoreKey;
 
 
-public class Task04a_CUSTOMTYPES {
+public class Task05b_CUSTOMTYPES {
 
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {

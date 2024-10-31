@@ -1,12 +1,7 @@
 package handson;
 
 import com.commercetools.api.client.ProjectApiRoot;
-import com.commercetools.api.models.common.Address;
-import com.commercetools.api.models.common.AddressBuilder;
-import com.commercetools.api.models.customer.AnonymousCartSignInMode;
-import com.commercetools.api.models.order.OrderState;
 import handson.impl.*;
-import io.vrap.rmf.base.client.ApiHttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,9 +12,9 @@ import static handson.impl.ClientService.createApiClient;
 import static handson.impl.ClientService.getStoreKey;
 
 
-public class Task03b_ORDER {
+public class Task04b_ORDER {
 
-    private static final Logger log = LoggerFactory.getLogger(Task03b_ORDER.class);
+    private static final Logger log = LoggerFactory.getLogger(Task04b_ORDER.class);
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 
@@ -34,8 +29,6 @@ public class Task03b_ORDER {
             OrderService orderService = new OrderService(apiRoot, storeKey);
             PaymentService paymentService = new PaymentService(apiRoot, storeKey);
 
-            // TODO: Fetch a channel if your inventory mode will not be NONE
-            //
             final String cartId = "";
             final String customerKey = "ct-customer";
             final String customerEmail = "ct@example.com";

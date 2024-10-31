@@ -28,6 +28,7 @@ public class Task02b_UPDATE {
 
             // TODO: UPDATE product categories
             //
+
         }
     }
 }

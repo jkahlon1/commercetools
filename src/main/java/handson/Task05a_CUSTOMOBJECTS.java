@@ -3,7 +3,6 @@ package handson;
 import com.commercetools.api.client.ProjectApiRoot;
 import com.commercetools.api.models.common.Reference;
 import handson.impl.ApiPrefixHelper;
-import io.vrap.rmf.base.client.ApiHttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +15,7 @@ import java.util.concurrent.ExecutionException;
 import static handson.impl.ClientService.createApiClient;
 
 
-public class Task04b_CUSTOMOBJECTS {
+public class Task05a_CUSTOMOBJECTS {
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 

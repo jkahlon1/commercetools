@@ -2,8 +2,6 @@ package handson;
 
 import com.commercetools.api.client.ProjectApiRoot;
 import com.commercetools.api.models.category.Category;
-import com.commercetools.api.models.category.CategoryReference;
-import com.commercetools.api.models.category.CategoryReferenceBuilder;
 import com.commercetools.api.models.product.*;
 import handson.impl.ApiPrefixHelper;
 import org.slf4j.Logger;
@@ -24,23 +22,16 @@ public class Task01b_PRODUCT_SEARCH {
         try (ProjectApiRoot apiRoot = createApiClient(apiClientPrefix)) {
             Logger logger = LoggerFactory.getLogger("commercetools");
 
-            Category seedCategory = apiRoot
-                    .categories()
-                    .withKey("home-decor")
-                    .get().execute().get().getBody();
+            Category furnitureCategory = apiRoot.categories()
+                    .withKey("furniture")
+                    .get()
+                    .execute().get().getBody();
 
-            // to get categoryReference
-            CategoryReference seedCategoryReference =
-                    CategoryReferenceBuilder.of()
-                            .id(seedCategory.getId())
-                            .build();
-
-            // filter from product projection query response
-
+            // TODO: filter from product projection query response
             // the effective filter from the search response
             // params found in the product projection search https://docs.commercetools.com/api/projects/products-search#search-productprojections
-            ProductProjectionPagedSearchResponse productProjectionPagedSearchResponse = null;
 
+            ProductProjectionPagedSearchResponse productProjectionPagedSearchResponse = null;
 
             int size = productProjectionPagedSearchResponse.getResults().size();
             logger.info("No. of products: " + size);
@@ -53,12 +44,12 @@ public class Task01b_PRODUCT_SEARCH {
             for (String facet: productProjectionPagedSearchResponse.getFacets().values().keySet()){
                 FacetResult facetResult = productProjectionPagedSearchResponse.getFacets().withFacetResults(FacetResultsAccessor::asFacetResultMap).get(facet);
                 if (facetResult instanceof RangeFacetResult) {
-                    logger.info("No. of Ranges: {}", ((RangeFacetResult)facetResult).getRanges().size());
-                    logger.info("Facet Result: {}", ((RangeFacetResult)facetResult).getRanges().stream().map(facetResultRange -> facetResultRange.getFromStr() + " to " + facetResultRange.getToStr() + ": " + facetResultRange.getCount()).collect(Collectors.toList()));
+                    logger.info("{} ranges: {}", facet ,((RangeFacetResult)facetResult).getRanges().size());
+                    logger.info("Facet counts: {}", ((RangeFacetResult)facetResult).getRanges().stream().map(facetResultRange -> facetResultRange.getFromStr() + " to " + facetResultRange.getToStr() + ": " + facetResultRange.getCount()).collect(Collectors.toList()));
                 }
                 else if (facetResult instanceof TermFacetResult) {
-                    logger.info("No. of Terms: {}", ((TermFacetResult)facetResult).getTerms().size());
-                    logger.info("Facet Result: {}", ((TermFacetResult)facetResult).getTerms().stream().map(facetResultTerm -> facetResultTerm.getTerm() + ": " + facetResultTerm.getCount()).collect(Collectors.joining(", ")));
+                    logger.info("{} terms: {}", facet, ((TermFacetResult)facetResult).getTerms().size());
+                    logger.info("Facet counts: {}", ((TermFacetResult)facetResult).getTerms().stream().map(facetResultTerm -> facetResultTerm.getTerm() + ": " + facetResultTerm.getCount()).collect(Collectors.joining(", ")));
                 }
             }
 

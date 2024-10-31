@@ -1,9 +1,7 @@
 package handson;
 
 import com.commercetools.api.client.ProjectApiRoot;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import handson.impl.ApiPrefixHelper;
-import io.vrap.rmf.base.client.utils.json.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +11,7 @@ import java.util.concurrent.ExecutionException;
 import static handson.impl.ClientService.createApiClient;
 import static handson.impl.ClientService.getProjectKey;
 
-public class Task02c_STORE_API_CREDS {
+public class Task03a_STORE_API_CREDS {
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 
