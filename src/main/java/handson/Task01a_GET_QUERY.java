@@ -20,13 +20,6 @@ import java.util.stream.Collectors;
 import static handson.impl.ClientService.createApiClient;
 
 
-/**
- * Configure client and get project information.
- *
- * See:
- *  TODO dev.properties
- *  TODO {@link ClientService#createApiClient(String prefix)}
- */
 public class Task01a_GET_QUERY {
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
@@ -43,67 +36,73 @@ public class Task01a_GET_QUERY {
             Project project = apiRoot.get().executeBlocking().getBody();
             logger.info("Project key: {}", project.getKey());
 
-//            // TODO CHECK if a tax category exists
-//            //
-//            try {
-//                int statusCode = apiRoot.taxCategories()
-//                        .withKey("standard")
-//                        .head()
-//                        .executeBlocking().getStatusCode();
-//                logger.info("Response: " + statusCode);
-//            }
-//            catch (NotFoundException nfe) {
-//                logger.info("Tax category not found " + nfe.getStatusCode());
-//            }
-//            catch (Exception e) {
-//                logger.info("Tax category not found " + e.getMessage());
-//            }
-//
-//            // TODO CHECK if a tax category exists asynchronously
-//            //
-//            apiRoot.taxCategories()
-//                    .withKey("standard-tax")
-//                    .head()
-//                    .execute()
-//                    .thenAccept((apiHttpResponse) -> {
-//                        int statusCode = apiHttpResponse.getStatusCode();
-//                        logger.info("Response: " + statusCode);
-//                    })
-//                    .exceptionally(throwable -> {logger.info("Tax category not found " + throwable.getMessage());
-//                        return null;
-//                    }).join();
+            // TODO CHECK if a Shipping Method exists
+            //
+            try {
+                int statusCode = apiRoot.shippingMethods()
+                        .withKey("standard")
+                        .head()
+                        .executeBlocking().getStatusCode();
+                logger.info("Response: " + statusCode);
+            }
+            catch (NotFoundException nfe) {
+                logger.info("Shipping method not found " + nfe.getStatusCode());
+            }
+            catch (Exception e) {
+                logger.info("Shipping method not found " + e.getMessage());
+            }
+
+            // TODO CHECK if a Shipping Method exists asynchronously
+            //
+            apiRoot.shippingMethods()
+                    .withKey("standard-delivery")
+                    .head()
+                    .execute()
+                    .thenAccept((apiHttpResponse) -> {
+                        int statusCode = apiHttpResponse.getStatusCode();
+                        logger.info("Response: " + statusCode);
+                    })
+                    .exceptionally(throwable -> {logger.info("Shipping method not found " + throwable.getMessage());
+                        return null;
+                    }).join();
 
 
-//            // TODO: GET tax categories
-//            //
-//
-//            TaxCategoryPagedQueryResponse taxCategoryPagedQueryResponse = apiRoot.taxCategories().get().executeBlocking().getBody();
-//            if (taxCategoryPagedQueryResponse != null && taxCategoryPagedQueryResponse.getResults() != null) {
-//                logger.info("Tax categories: {}",
-//                        taxCategoryPagedQueryResponse.getResults().stream().map(TaxCategory::getKey).collect(Collectors.toList())
-//                );
-//            } else {
-//                logger.warn("No tax categories found.");
-//            }
+            // TODO: GET tax categories
+            //
+
+            TaxCategoryPagedQueryResponse taxCategoryPagedQueryResponse = apiRoot
+                    .taxCategories()
+                    .get()
+                    .executeBlocking().getBody();
+            if (taxCategoryPagedQueryResponse != null && taxCategoryPagedQueryResponse.getResults() != null) {
+                logger.info("Tax categories: {}",
+                        taxCategoryPagedQueryResponse.getResults()
+                                .stream()
+                                .map(TaxCategory::getKey)
+                                .collect(Collectors.toList())
+                );
+            } else {
+                logger.warn("No tax categories found.");
+            }
 
 
-//            // TODO Get Tax category by Key
-//            //
-//            apiRoot.taxCategories()
-//                .withKey("standard-tax")
-//                .get()
-//                .execute()
-//                .thenApply(ApiHttpResponse::getBody)
-//                .thenAccept(taxCategory -> {
-//                    logger.info("Tax category ID: {}", taxCategory.getId());
-//                    try {
-//                        System.out.println(JsonUtils.prettyPrint(JsonUtils.toJsonString(taxCategory)));
-//                    } catch (JsonProcessingException ignored) { }
-//                })
-//                .exceptionally(throwable -> {
-//                    logger.error("Exception: {}", throwable.getMessage());
-//                    return null;
-//                }).join();
+            // TODO Get Tax category by Key
+            //
+            apiRoot.taxCategories()
+                .withKey("standard-tax")
+                .get()
+                .execute()
+                .thenApply(ApiHttpResponse::getBody)
+                .thenAccept(taxCategory -> {
+                    logger.info("Tax category ID: {}", taxCategory.getId());
+                    try {
+                        System.out.println(JsonUtils.prettyPrint(JsonUtils.toJsonString(taxCategory)));
+                    } catch (JsonProcessingException ignored) { }
+                })
+                .exceptionally(throwable -> {
+                    logger.error("Exception: {}", throwable.getMessage());
+                    return null;
+                }).join();
 
         }
     }

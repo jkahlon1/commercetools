@@ -1,8 +1,6 @@
 package handson;
 
 import com.commercetools.api.client.ProjectApiRoot;
-import com.commercetools.api.models.order.*;
-import com.commercetools.api.models.product_search.ProductSearchRequest;
 import com.commercetools.api.models.product_search.ProductSearchRequestBuilder;
 import com.commercetools.api.models.search.*;
 import handson.impl.*;
@@ -12,14 +10,13 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 import static handson.impl.ClientService.createApiClient;
 import static handson.impl.ClientService.getStoreKey;
 
 
-public class Task06b_SEARCHQUERY {
+public class Task05d_SEARCHQUERY {
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 

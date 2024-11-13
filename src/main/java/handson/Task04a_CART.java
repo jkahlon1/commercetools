@@ -2,7 +2,6 @@ package handson;
 
 import com.commercetools.api.client.ProjectApiRoot;
 import handson.impl.*;
-import io.vrap.rmf.base.client.ApiHttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,9 +12,9 @@ import static handson.impl.ClientService.createApiClient;
 import static handson.impl.ClientService.getStoreKey;
 
 
-public class Task04a_CHECKOUT {
+public class Task04a_CART {
 
-    private static final Logger log = LoggerFactory.getLogger(Task04a_CHECKOUT.class);
+    private static final Logger log = LoggerFactory.getLogger(Task04a_CART.class);
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 
@@ -31,31 +30,19 @@ public class Task04a_CHECKOUT {
             CartService cartService = new CartService(apiRoot, storeKey);
             StoreService storeService = new StoreService(apiRoot, storeKey);
 
-//            // TODO: Perform cart operations: add products to a new customer cart
-//            //
-//            customerService.getCustomerByKey("")
-//                    .thenCombineAsync(storeService.getCurrentStore(), ((customerApiHttpResponse, storeApiHttpResponse) ->
-//                            cartService.createCustomerCart(customerApiHttpResponse, storeApiHttpResponse, "RB-01", 2L, supplyChannelKey, distChannelKey)))
-//                    .get()
-//                    .thenAccept(cartApiHttpResponse -> logger.info("cart created {}", cartApiHttpResponse.getBody().getId()))
-//                    .exceptionally(throwable -> {
-//                        logger.error("Exception: {}", throwable.getMessage());
-//                        return null;
-//                    }).join();
 
+            // TODO: Perform cart operations: add products to a new anonymous cart
+            //
+            storeService.getCurrentStore()
+                    .thenComposeAsync(storeApiHttpResponse ->
+                            cartService.createAnonymousCart(storeApiHttpResponse, "AAR-34", 3L, supplyChannelKey, distChannelKey))
+                    .thenAccept(cartApiHttpResponse -> logger.info("cart created {}", cartApiHttpResponse.getBody().getId()))
+                    .exceptionally(throwable -> {
+                        logger.error("Exception: {}", throwable.getMessage());
+                        return null;
+                    }).join();
 
-//            // TODO: Perform cart operations: add products to a new anonymous cart
-//            //
-//            storeService.getCurrentStore()
-//                    .thenComposeAsync(storeApiHttpResponse ->
-//                            cartService.createAnonymousCart(storeApiHttpResponse, "AAR-34", 3L, supplyChannelKey, distChannelKey))
-//                    .thenAccept(cartApiHttpResponse -> logger.info("cart created {}", cartApiHttpResponse.getBody().getId()))
-//                    .exceptionally(throwable -> {
-//                        logger.error("Exception: {}", throwable.getMessage());
-//                        return null;
-//                    }).join();
-
-//            // TODO Add a new address if no default shipping address found
+//            // TODO Add a new shipping address
 //            //
 //            Address shippingAddress = AddressBuilder.of()
 //                    .firstName("commercetools")

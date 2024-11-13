@@ -215,7 +215,7 @@ public class CustomerService {
             );
     }
 
-    public CompletableFuture<ApiHttpResponse<Customer>> addAddressToCustomer(
+    public CompletableFuture<ApiHttpResponse<Customer>> addDefaultShippingAddressToCustomer(
             final String customerKey,
             final Address address) {
 
@@ -231,9 +231,6 @@ public class CustomerService {
                                                         Arrays.asList(
                                                                 CustomerAddAddressActionBuilder.of()
                                                                         .address(address)
-                                                                        .build(),
-                                                                CustomerSetDefaultBillingAddressActionBuilder.of()
-                                                                        .addressKey(address.getKey())
                                                                         .build(),
                                                                 CustomerSetDefaultShippingAddressActionBuilder.of()
                                                                         .addressKey(address.getKey())

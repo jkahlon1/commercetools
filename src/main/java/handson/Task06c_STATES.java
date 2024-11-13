@@ -20,7 +20,7 @@ import static handson.impl.ClientService.createApiClient;
 import static handson.impl.ClientService.getStoreKey;
 
 
-public class Task04c_STATEMACHINE {
+public class Task06c_STATES {
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 

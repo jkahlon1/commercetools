@@ -16,7 +16,7 @@ import java.util.concurrent.ExecutionException;
 import static handson.impl.ClientService.createApiClient;
 
 
-public class Task04b_CUSTOMOBJECTS {
+public class Task06a_CUSTOMOBJECTS {
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 
@@ -32,11 +32,11 @@ public class Task04b_CUSTOMOBJECTS {
 
             Map<String, Object> jsonObject = new HashMap<>();
             jsonObject.put("crossSell", Arrays.asList(
-                (Reference.productBuilder().id("72e5463f-b8e6-4d9f-8712-696650d37302").build()),
-                Reference.productBuilder().id("c1cb54ce-166d-40d9-96d6-cc989298b932").build()));
+                (Reference.productBuilder().id("product-id").build()),
+                Reference.productBuilder().id("product-id").build()));
             jsonObject.put("upSell", Arrays.asList(
-                Reference.productBuilder().id("c1cb54ce-166d-40d9-96d6-cc989298b932").build(),
-                Reference.productBuilder().id("72e5463f-b8e6-4d9f-8712-696650d37302").build()));
+                Reference.productBuilder().id("product-id").build(),
+                Reference.productBuilder().id("product-id").build()));
 
             apiRoot
                 .customObjects()

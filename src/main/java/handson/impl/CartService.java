@@ -10,6 +10,7 @@ import io.vrap.rmf.base.client.ApiHttpResponse;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -205,7 +206,7 @@ public class CartService {
                     .execute();
     }
 
-    public CompletableFuture<ApiHttpResponse<Cart>> addShippingAddress(
+    public CompletableFuture<ApiHttpResponse<Cart>> setShippingAddress(
             final ApiHttpResponse<Cart> cartApiHttpResponse,
             final Address address) {
 
@@ -294,31 +295,30 @@ public class CartService {
         final Cart cart = cartApiHttpResponse.getBody();
 
         final ShippingMethod shippingMethod =
-                apiRoot
-                        .shippingMethods()
-                        .matchingCart()
-                        .get()
-                        .withCartId(cart.getId())
-                        .executeBlocking()
-                        .getBody().getResults().get(0);
-        System.out.println(shippingMethod.getId());
+            apiRoot
+                .shippingMethods()
+                .matchingCart()
+                .get()
+                .withCartId(cart.getId())
+                .executeBlocking()
+                .getBody().getResults().get(0);
         return apiRoot
-                .inStore(storeKey)
-                .carts()
-                .withId(cart.getId())
-                .post(
-                        cartUpdateBuilder -> cartUpdateBuilder
-                                .version(cart.getVersion())
-                                .plusActions(
-                                        cartUpdateActionBuilder -> cartUpdateActionBuilder
-                                                .setShippingMethodBuilder()
-                                                .shippingMethod(
-                                                        shippingMethodResourceIdentifierBuilder -> shippingMethodResourceIdentifierBuilder
-                                                                .id(shippingMethod.getId())
-                                                )
-                                )
-                )
-                .execute();
+            .inStore(storeKey)
+            .carts()
+            .withId(cart.getId())
+            .post(
+                cartUpdateBuilder -> cartUpdateBuilder
+                    .version(cart.getVersion())
+                    .plusActions(
+                        cartUpdateActionBuilder -> cartUpdateActionBuilder
+                            .setShippingMethodBuilder()
+                            .shippingMethod(
+                                shippingMethodResourceIdentifierBuilder -> shippingMethodResourceIdentifierBuilder
+                                    .id(shippingMethod.getId())
+                            )
+                    )
+            )
+            .execute();
     }
 
 }

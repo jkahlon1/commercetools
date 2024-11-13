@@ -2,8 +2,6 @@ package handson;
 
 import com.commercetools.api.client.ProjectApiRoot;
 import com.commercetools.api.models.category.Category;
-import com.commercetools.api.models.category.CategoryReference;
-import com.commercetools.api.models.category.CategoryReferenceBuilder;
 import com.commercetools.api.models.product.*;
 import handson.impl.ApiPrefixHelper;
 import org.slf4j.Logger;
@@ -14,7 +12,7 @@ import java.util.stream.Collectors;
 
 import static handson.impl.ClientService.createApiClient;
 
-public class Task01b_PRODUCT_SEARCH {
+public class Task02a_PRODUCT_SEARCH {
 
     public static void main(String[] args) throws Exception {
 
@@ -25,7 +23,7 @@ public class Task01b_PRODUCT_SEARCH {
             Logger logger = LoggerFactory.getLogger("commercetools");
 
             Category furnitureCategory = apiRoot.categories()
-                    .withKey("furniture")
+                    .withKey("home-decor")
                     .get()
                     .execute().get().getBody();
 
@@ -44,6 +42,7 @@ public class Task01b_PRODUCT_SEARCH {
                 .withFilterQuery("categories.id:\"" + furnitureCategory.getId() + "\"")
 
                 // TODO Get all Facets for Enum color and finish
+                // Make sure the attributes are searchable
 
                 .withFacet("variants.attributes.color.en-US as Color-EN")
                 .addFacet("variants.attributes.color.de-DE as Color-DE")

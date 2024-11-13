@@ -105,8 +105,7 @@ public class ClientService {
                         .withClientId(clientId)
                         .withClientSecret(clientSecret)
                         .build(),
-                com.commercetools.importapi.defaultconfig.ServiceRegion.GCP_EUROPE_WEST1.getOAuthTokenUrl(),
-                com.commercetools.importapi.defaultconfig.ServiceRegion.GCP_EUROPE_WEST1.getApiUrl()
+                com.commercetools.importapi.defaultconfig.ServiceRegion.GCP_EUROPE_WEST1
             )
             .build(projectKey);
 
