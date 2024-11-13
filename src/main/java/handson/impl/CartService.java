@@ -29,13 +29,12 @@ public class CartService {
 
     public CompletableFuture<ApiHttpResponse<Cart>> getCartById(final String cartId) {
 
-            return apiRoot
-                    .inStore(storeKey)
-                    .carts()
-                    .withId(cartId)
-                    .get()
-                    .execute();
-
+        return apiRoot
+            .inStore(storeKey)
+            .carts()
+            .withId(cartId)
+            .get()
+            .execute();
     }
 
 
@@ -67,7 +66,31 @@ public class CartService {
                 break;
         }
         return
-                null;
+            apiRoot
+                .inStore(storeKey)
+                .carts()
+                .post(
+                    cartDraftBuilder -> cartDraftBuilder
+                        .currency(currencyCode)
+                        .deleteDaysAfterLastModification(90L)
+                        .customerEmail(customer.getEmail())
+                        .customerId(customer.getId())
+                        .country(countryCode)
+                        .shippingAddress(customer.getAddresses().stream()
+                            .filter(address -> address.getId().equals(customer.getDefaultShippingAddressId()))
+                            .findFirst()
+                            .orElse(null))
+                        .addLineItems(lineItemDraftBuilder -> lineItemDraftBuilder
+                            .sku(sku)
+                            .supplyChannel(channelResourceIdentifierBuilder ->
+                                channelResourceIdentifierBuilder.key(supplyChannelKey))
+                            .distributionChannel(channelResourceIdentifierBuilder ->
+                                channelResourceIdentifierBuilder.key(distChannelKey))
+                            .quantity(quantity)
+                            .build())
+                        .inventoryMode(InventoryMode.NONE)
+                )
+                .execute();
     }
 
     public CompletableFuture<ApiHttpResponse<Cart>> createAnonymousCart(
@@ -91,32 +114,15 @@ public class CartService {
                 break;
         }
 
-        return apiRoot
-                .inStore(storeKey)
-                .carts()
-                .post(
-                        cartDraftBuilder -> cartDraftBuilder
-                                .currency(currencyCode)
-                                .deleteDaysAfterLastModification(90L)
-                                .anonymousId("an" + System.nanoTime())
-                                .country(countryCode)
-                                .addLineItems(lineItemDraftBuilder -> lineItemDraftBuilder
-                                        .sku(sku)
-                                        .supplyChannel(channelResourceIdentifierBuilder ->
-                                                channelResourceIdentifierBuilder.key(supplyChannelKey))
-                                        .distributionChannel(channelResourceIdentifierBuilder ->
-                                                channelResourceIdentifierBuilder.key(distChannelKey))
-                                        .quantity(quantity)
-                                .build())
-                )
-                .execute();
+        return
+            null;
     }
 
     public CompletableFuture<ApiHttpResponse<Cart>> replicateOrderByOrderNumber(
             final String orderNumber) {
 
         return
-                null;
+            null;
     }
 
     public CompletableFuture<ApiHttpResponse<Cart>> addProductToCartBySkusAndChannel(
@@ -126,9 +132,8 @@ public class CartService {
             final String ... skus) {
 
         final Cart cart = cartApiHttpResponse.getBody();
-
         return
-                null;
+            null;
     }
 
     public CompletableFuture<ApiHttpResponse<Cart>> addDiscountToCart(
@@ -151,13 +156,13 @@ public class CartService {
                     .execute();
     }
 
-    public CompletableFuture<ApiHttpResponse<Cart>> addShippingAddress(
+    public CompletableFuture<ApiHttpResponse<Cart>> setShippingAddress(
             final ApiHttpResponse<Cart> cartApiHttpResponse,
             final Address address) {
 
         final Cart cart = cartApiHttpResponse.getBody();
-
-        return null;
+        return
+            null;
     }
 
     public CompletableFuture<ApiHttpResponse<Cart>> freezeCart(final ApiHttpResponse<Cart> cartApiHttpResponse) {
@@ -187,14 +192,15 @@ public class CartService {
     public CompletableFuture<ApiHttpResponse<Cart>> recalculate(final ApiHttpResponse<Cart> cartApiHttpResponse) {
 
         final Cart cart = cartApiHttpResponse.getBody();
-        return null;
+        return
+            null;
     }
 
     public CompletableFuture<ApiHttpResponse<Cart>> setShipping(final ApiHttpResponse<Cart> cartApiHttpResponse) {
 
         final Cart cart = cartApiHttpResponse.getBody();
-
-        return null;
+        return
+            null;
     }
 
 }

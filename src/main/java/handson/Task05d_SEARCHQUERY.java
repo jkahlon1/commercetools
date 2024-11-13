@@ -1,22 +1,19 @@
 package handson;
 
 import com.commercetools.api.client.ProjectApiRoot;
-import com.commercetools.api.models.order.*;
-import handson.impl.*;
+import handson.impl.ApiPrefixHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 import static handson.impl.ClientService.createApiClient;
-import static handson.impl.ClientService.getStoreKey;
 
 
-public class Task06b_SEARCHQUERY {
+public class Task05d_SEARCHQUERY {
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 
@@ -24,7 +21,6 @@ public class Task06b_SEARCHQUERY {
         try (ProjectApiRoot apiRoot = createApiClient(apiClientPrefix)) {
             Logger logger = LoggerFactory.getLogger("commercetools");
 
-            final String storeKey = getStoreKey(apiClientPrefix);
 
             logger.info("Today's orders: " +
                     apiRoot
@@ -89,6 +85,7 @@ public class Task06b_SEARCHQUERY {
                             .executeBlocking()
                             .getBody().getTotal()
             );
+
         }
     }
 }

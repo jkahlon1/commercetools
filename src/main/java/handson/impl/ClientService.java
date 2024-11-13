@@ -26,7 +26,10 @@ public class ClientService {
      */
     public static ProjectApiRoot createApiClient(final String prefix) throws IOException {
 
-        // TODO: create project api root using client credentials flow
+        Properties props = new Properties();
+        props.load(ClientService.class.getResourceAsStream("/dev.properties"));
+
+        // TODO CREATE client
         return projectApiRoot;
     }
 

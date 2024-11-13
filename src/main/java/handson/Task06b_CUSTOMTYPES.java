@@ -16,7 +16,7 @@ import static handson.impl.ClientService.createApiClient;
 import static handson.impl.ClientService.getStoreKey;
 
 
-public class Task05b_CUSTOMTYPES {
+public class Task06b_CUSTOMTYPES {
 
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {

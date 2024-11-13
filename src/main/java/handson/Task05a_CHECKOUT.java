@@ -12,9 +12,9 @@ import static handson.impl.ClientService.createApiClient;
 import static handson.impl.ClientService.getStoreKey;
 
 
-public class Task04b_ORDER {
+public class Task05a_CHECKOUT {
 
-    private static final Logger log = LoggerFactory.getLogger(Task04b_ORDER.class);
+    private static final Logger log = LoggerFactory.getLogger(Task05a_CHECKOUT.class);
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 
@@ -34,44 +34,6 @@ public class Task04b_ORDER {
             final String customerEmail = "ct@example.com";
             final String orderNumber = "";
 
-            //  TODO: LOGIN customer or signup, if not found
-            //
-
-
-//            // TODO: GET default shipping address from customer profile
-//            // TODO Optionally add a new address and save it as default for the customer
-//            //
-//            customerService
-//                    .getCustomerByKey(customerKey)
-//                    .thenApply(ApiHttpResponse::getBody)
-//                    .thenApply(customer -> customer.getAddresses().stream()
-//                            .filter(address -> address.getId().equals(customer.getDefaultShippingAddressId()))
-//                            .findFirst()
-//                    )
-//                    .thenAccept(optionalAddress -> {
-//                        Address shippingAddress = optionalAddress.orElseGet(() -> AddressBuilder.of()
-//                                .firstName("First")
-//                                .lastName("Tester")
-//                                .country("DE")
-//                                .key(customerKey + "-default")
-//                                .build()
-//                        );
-//                        if(!optionalAddress.isPresent()) {
-//                            try {
-//                                logger.info("Customer address added and set as default billing and shipping address:"
-//                                        + customerService.addAddressToCustomer(customerKey, shippingAddress)
-//                                        .get().getBody().getEmail()
-//                                );
-//                            } catch (Exception e) {throw new RuntimeException(e);}
-//                        }
-//                        // TODO: UPDATE cart shipping address
-//                        // TODO: SET default shipping method
-//                        // TODO: RECALCULATE cart
-//                    })
-//                    .exceptionally(ex -> {
-//                        logger.error("Error retrieving customer: {}", ex.getMessage());
-//                        return null;
-//                    }).join();
 
 //            // TODO ADD Payment to the cart
 //            //
@@ -91,7 +53,7 @@ public class Task04b_ORDER {
 //                    }).join();
 
             // TODO: Place the order
-            // TODO: Set order status to CONFIRMED, set custom workflow state to initial state
+            // TODO: Set order status to CONFIRMED
             // customerService.loginCustomer(customerEmail, "password") // Sign in and find last customer cart
             // or
             // cartService.getCartById(cartId)      // Get cart by Id

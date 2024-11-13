@@ -1,12 +1,7 @@
 package handson;
 
 import com.commercetools.api.client.ProjectApiRoot;
-import com.commercetools.api.models.order.OrderState;
-import com.commercetools.api.models.order.StagedOrderUpdateAction;
-import com.commercetools.api.models.order.StagedOrderUpdateActionBuilder;
-import com.commercetools.api.models.order_edit.StagedOrderAddLineItemActionBuilder;
 import handson.impl.*;
-import io.vrap.rmf.base.client.ApiHttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +12,7 @@ import static handson.impl.ClientService.createApiClient;
 import static handson.impl.ClientService.getStoreKey;
 
 
-public class Task05c_ORDEREDITS {
+public class Task05b_ORDEREDITS {
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 

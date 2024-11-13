@@ -2,7 +2,6 @@ package handson;
 
 import com.commercetools.api.client.ProjectApiRoot;
 import handson.impl.*;
-import io.vrap.rmf.base.client.ApiHttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,9 +12,9 @@ import static handson.impl.ClientService.createApiClient;
 import static handson.impl.ClientService.getStoreKey;
 
 
-public class Task04a_CHECKOUT {
+public class Task04a_CART {
 
-    private static final Logger log = LoggerFactory.getLogger(Task04a_CHECKOUT.class);
+    private static final Logger log = LoggerFactory.getLogger(Task04a_CART.class);
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 
@@ -43,16 +42,17 @@ public class Task04a_CHECKOUT {
 //                        logger.error("Exception: {}", throwable.getMessage());
 //                        return null;
 //                    }).join();
-//            // TODO UPDATE cartId variable above
 
-//            // TODO ADD a shipping address to the cart
-//            //
+            // TODO UPDATE cartId variable above
 
-//            // TODO Recalculate cart
-//            //
+            // TODO ADD a shipping address to the cart
+            //
 
-//            // TODO Freeze cart
-//            //
+            // TODO Recalculate cart
+            //
+
+            // TODO Freeze cart
+            //
 
 
 //            // TODO Unfreeze cart

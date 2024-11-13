@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 import static handson.impl.ClientService.createApiClient;
 
-public class Task01b_PRODUCT_SEARCH {
+public class Task02a_PRODUCT_SEARCH {
 
     public static void main(String[] args) throws Exception {
 
@@ -23,15 +23,28 @@ public class Task01b_PRODUCT_SEARCH {
             Logger logger = LoggerFactory.getLogger("commercetools");
 
             Category furnitureCategory = apiRoot.categories()
-                    .withKey("furniture")
+                    .withKey("home-decor")
                     .get()
                     .execute().get().getBody();
 
-            // TODO: filter from product projection query response
-            // the effective filter from the search response
             // params found in the product projection search https://docs.commercetools.com/api/projects/products-search#search-productprojections
-
             ProductProjectionPagedSearchResponse productProjectionPagedSearchResponse = null;
+                // TODO Get all products
+
+                // TODO Restrict on category home-decor
+
+                // TODO Get all Facets for Enum color and finish
+                // Make sure the attributes are searchable
+
+                // TODO Add price as a range facet
+
+                // TODO Give price range on products with no effect on facets
+                // .withFilter("variants.price.centAmount:range (1000 to 100000)")
+
+                // TODO: with effect on facets
+
+                // TODO: Simulate click on facet White:#FFFFFF or Golden Rod:#DAA520 from attribute color
+
 
             int size = productProjectionPagedSearchResponse.getResults().size();
             logger.info("No. of products: " + size);

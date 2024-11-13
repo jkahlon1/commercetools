@@ -13,7 +13,7 @@ import static handson.impl.ClientService.createApiClient;
 import static handson.impl.ClientService.getStoreKey;
 
 
-public class Task06a_ORDER_REPLICATE {
+public class Task05c_ORDER_REPLICATE {
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 

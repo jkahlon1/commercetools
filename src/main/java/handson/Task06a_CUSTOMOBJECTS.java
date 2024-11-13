@@ -15,7 +15,7 @@ import java.util.concurrent.ExecutionException;
 import static handson.impl.ClientService.createApiClient;
 
 
-public class Task05a_CUSTOMOBJECTS {
+public class Task06a_CUSTOMOBJECTS {
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 
@@ -31,17 +31,18 @@ public class Task05a_CUSTOMOBJECTS {
 
             Map<String, Object> jsonObject = new HashMap<>();
             jsonObject.put("crossSell", Arrays.asList(
-                (Reference.productBuilder().id("72e5463f-b8e6-4d9f-8712-696650d37302").build()),
-                Reference.productBuilder().id("c1cb54ce-166d-40d9-96d6-cc989298b932").build()));
+                (Reference.productBuilder().id("product-id").build()),
+                Reference.productBuilder().id("product-id").build()));
             jsonObject.put("upSell", Arrays.asList(
-                Reference.productBuilder().id("c1cb54ce-166d-40d9-96d6-cc989298b932").build(),
-                Reference.productBuilder().id("72e5463f-b8e6-4d9f-8712-696650d37302").build()));
+                Reference.productBuilder().id("product-id").build(),
+                Reference.productBuilder().id("product-id").build()));
 
+            // TODO: CREATE a custom object
             // client.customObjects().post().execute()
 
 
-            // TODO: CREATE a custom object
-            // Update the Product Type to add a reference type attribute for key-value-document.
+            // TODO: ADD attribute as a reference type key-value-document
+            // Update the Product Type to add a reference type attribute .
             // Update Products by storing a reference to the Custom Object created in the above step.
             //
         }
