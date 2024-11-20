@@ -86,25 +86,7 @@ public class Task05d_SEARCHQUERY {
                 .getBody().getTotal()
             );
 
-            logger.info("Product with keyword in name: " + apiRoot
-                    .products()
-                    .search()
-                    .post(
-                            ProductSearchRequestBuilder.of()
-                                    .query(SearchFullTextExpressionBuilder.of()
-                                            .fullText(SearchFullTextValueBuilder.of()
-                                                    .field("name")
-                                                    .value("bed frame")
-                                                    .language("en-US")
-                                                    .mustMatch(SearchMatchType.ANY)
-                                                    .build())
-                                            .build()
-                                    )
-                                    .build()
-                    )
-                    .executeBlocking()
-                    .getBody().getTotal()
-            );
+
         }
     }
 }

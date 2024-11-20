@@ -1,12 +1,8 @@
 package handson;
 
 import com.commercetools.api.client.ProjectApiRoot;
-import com.commercetools.api.models.common.Address;
-import com.commercetools.api.models.common.AddressBuilder;
 import com.commercetools.api.models.customer.AnonymousCartSignInMode;
-import com.commercetools.api.models.order.OrderState;
 import handson.impl.*;
-import io.vrap.rmf.base.client.ApiHttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,9 +13,9 @@ import static handson.impl.ClientService.createApiClient;
 import static handson.impl.ClientService.getStoreKey;
 
 
-public class Task04b_LOGIN {
+public class Task04d_LOGIN {
 
-    private static final Logger log = LoggerFactory.getLogger(Task04b_LOGIN.class);
+    private static final Logger log = LoggerFactory.getLogger(Task04d_LOGIN.class);
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 

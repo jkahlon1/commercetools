@@ -15,7 +15,7 @@ import java.util.concurrent.ExecutionException;
 import static handson.impl.ClientService.createApiClient;
 
 
-public class Task07b_GRAPHQL {
+public class Task04b_GRAPHQL {
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 
@@ -47,13 +47,13 @@ public class Task07b_GRAPHQL {
 //                    "inStore(key:$storeKey) { " +
 //                        "productSelectionAssignments { " +
 //                            "results { " +
-//                            "product { key skus } " +
-//                            "productSelection { name(locale: \"en\") } " +
-//                            "variantSelection { skus } " +
+//                                "product { key skus } " +
+//                                "productSelection { name(locale: \"en\") } " +
+//                                "variantSelection { skus } " +
+//                            "} " +
 //                        "} " +
 //                    "} " +
-//                "} " +
-//            "}";
+//                "}";
 //
 //            // Build the variables map
 //            Map<String, Object> variables = new HashMap<>();
@@ -61,17 +61,17 @@ public class Task07b_GRAPHQL {
 //
 //            // Create the GraphQL request
 //            GraphQLRequest<InStore> queryResultGraphQLRequest = GraphQL
-//                    .query(query)
-//                    .variables(graphQLVariablesMapBuilder -> graphQLVariablesMapBuilder.values(variables))
-//                    .dataMapper(GraphQLData::getInStore)
-//                    .build();
+//                .query(query)
+//                .variables(graphQLVariablesMapBuilder -> graphQLVariablesMapBuilder.values(variables))
+//                .dataMapper(GraphQLData::getInStore)
+//                .build();
 //
 //            // Execute the query
 //            ApiHttpResponse<ProductAssignmentQueryResult> response = apiRoot
-//                    .graphql()
-//                    .query(queryResultGraphQLRequest)
-//                    .executeBlocking()
-//                    .withBody(inStoreGraphQLResponse -> inStoreGraphQLResponse.getData().getProductSelectionAssignments());
+//                .graphql()
+//                .query(queryResultGraphQLRequest)
+//                .executeBlocking()
+//                .withBody(inStoreGraphQLResponse -> inStoreGraphQLResponse.getData().getProductSelectionAssignments());
 //
 //            // Log the product assignments
 //            if (response.getBody() != null && response.getBody().getResults() != null) {

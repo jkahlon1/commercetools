@@ -21,7 +21,7 @@ public class Task03b_QUERY_PRODUCTS {
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 
-
+// REPLACE WITH TAILORED DATA
         final String apiClientPrefix = ApiPrefixHelper.API_STORE_CLIENT_PREFIX.getPrefix();
         try (ProjectApiRoot apiRoot = createApiClient(apiClientPrefix)) {
             Logger logger = LoggerFactory.getLogger("commercetools");
@@ -32,22 +32,22 @@ public class Task03b_QUERY_PRODUCTS {
             // TODO: GET the products in the store
             //
             storeService.getProductsInCurrentStore()
-                    .thenApply(ApiHttpResponse::getBody)
-                    .thenAccept(productsInStorePagedQueryResponse -> {
-                            logger.info("{} products in the store", productsInStorePagedQueryResponse.getResults().size());
-                            productsInStorePagedQueryResponse.getResults().forEach(productsInStore -> {
-                                logger.info(productsInStore.getProduct().getObj().getKey());
-                                logger.info("MasterVariant Sku {}", productsInStore.getProduct().getObj().getMasterData().getCurrent().getMasterVariant().getSku());
-                                productsInStore.getProduct().getObj().getMasterData().getCurrent().getVariants().forEach(variant ->
-                                        logger.info("Variant Sku : {}", variant.getSku())
-                                );
-                            });
-                        }
-                    )
-                    .exceptionally(throwable -> {
-                        logger.error("Exception: {}", throwable.getMessage());
-                        return null;
-                    }).join();
+                .thenApply(ApiHttpResponse::getBody)
+                .thenAccept(productsInStorePagedQueryResponse -> {
+                    logger.info("{} products in the store", productsInStorePagedQueryResponse.getResults().size());
+                    productsInStorePagedQueryResponse.getResults().forEach(productsInStore -> {
+                        logger.info(productsInStore.getProduct().getObj().getKey());
+                        logger.info("MasterVariant Sku {}", productsInStore.getProduct().getObj().getMasterData().getCurrent().getMasterVariant().getSku());
+                        productsInStore.getProduct().getObj().getMasterData().getCurrent().getVariants().forEach(variant ->
+                            logger.info("Variant Sku : {}", variant.getSku())
+                        );
+                    });
+                    }
+                )
+                .exceptionally(throwable -> {
+                    logger.error("Exception: {}", throwable.getMessage());
+                    return null;
+                }).join();
 
         }
     }

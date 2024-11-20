@@ -6,7 +6,6 @@ import com.commercetools.api.models.tax_category.TaxCategory;
 import com.commercetools.api.models.tax_category.TaxCategoryPagedQueryResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import handson.impl.ApiPrefixHelper;
-import handson.impl.ClientService;
 import io.vrap.rmf.base.client.ApiHttpResponse;
 import io.vrap.rmf.base.client.error.NotFoundException;
 import io.vrap.rmf.base.client.utils.json.JsonUtils;

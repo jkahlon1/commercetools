@@ -49,16 +49,4 @@ public class StoreService {
                         .execute();
     }
 
-    public CompletableFuture<ApiHttpResponse<GraphQLResponse>> getProductsInStore(final String storeKey) {
-
-        GraphQLRequest<ProductAssignmentQueryResult> queryResultGraphQLRequest=
-        GraphQL
-                .productSelectionAssignments(query -> query.queryName("assignments"))
-                .projection(root -> root.results().product().key());
-
-        return  apiRoot.graphql()
-                .post(queryResultGraphQLRequest)
-                .execute();
-    }
-
 }
