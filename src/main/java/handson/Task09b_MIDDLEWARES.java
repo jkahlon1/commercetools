@@ -21,7 +21,7 @@ import java.util.concurrent.ExecutionException;
 
 import static handson.impl.ClientService.*;
 
-public class Task09b_SPHERECLIENT_LOGGING {
+public class Task09b_MIDDLEWARES {
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 

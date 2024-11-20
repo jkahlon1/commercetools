@@ -12,9 +12,9 @@ import static handson.impl.ClientService.createApiClient;
 import static handson.impl.ClientService.getStoreKey;
 
 
-public class Task04b_LOGIN {
+public class Task04d_LOGIN {
 
-    private static final Logger log = LoggerFactory.getLogger(Task04b_LOGIN.class);
+    private static final Logger log = LoggerFactory.getLogger(Task04d_LOGIN.class);
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 

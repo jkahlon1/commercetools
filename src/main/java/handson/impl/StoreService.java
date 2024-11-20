@@ -24,10 +24,6 @@ public class StoreService {
         this.storeKey = storeKey;
     }
 
-    /**
-     * Gets a store by key.
-     * @return the store completion stage
-     */
     public CompletableFuture<ApiHttpResponse<Store>> getCurrentStore() {
         return
                 apiRoot
@@ -43,16 +39,5 @@ public class StoreService {
                 null;
     }
 
-    public CompletableFuture<ApiHttpResponse<GraphQLResponse>> getProductsInStore(final String storeKey) {
-
-        GraphQLRequest<ProductAssignmentQueryResult> queryResultGraphQLRequest=
-        GraphQL
-                .productSelectionAssignments(query -> query.queryName("assignments"))
-                .projection(root -> root.results().product().key());
-
-        return  apiRoot.graphql()
-                .post(queryResultGraphQLRequest)
-                .execute();
-    }
 
 }

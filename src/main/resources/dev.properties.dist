@@ -1,12 +1,12 @@
 ## API Client for Dev Admin
 
 ctp.projectKey=
-dev-admin.clientId=
-dev-admin.clientSecret=
-dev-admin.authUrl=
-dev-admin.apiUrl=
-dev-admin.scopes=
-dev-admin.storeKey=
+ctp.clientId=
+ctp.clientSecret=
+ctp.authUrl=
+ctp.apiUrl=
+ctp.scopes=
+ctp.storeKey=
 
 ## API Client for store
 

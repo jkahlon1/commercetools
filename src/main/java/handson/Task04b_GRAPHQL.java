@@ -2,20 +2,28 @@ package handson;
 
 import com.commercetools.api.client.ProjectApiRoot;
 import com.commercetools.graphql.api.GraphQL;
+import com.commercetools.graphql.api.GraphQLData;
+import com.commercetools.graphql.api.GraphQLRequest;
 import com.commercetools.graphql.api.GraphQLResponse;
+import com.commercetools.graphql.api.types.InStore;
+import com.commercetools.graphql.api.types.ProductAssignmentQueryResult;
 import com.commercetools.graphql.api.types.ProductQueryResult;
 import handson.impl.ApiPrefixHelper;
+import io.vrap.rmf.base.client.ApiHttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import static handson.impl.ClientService.createApiClient;
+import static handson.impl.ClientService.getStoreKey;
 
 
-public class Task07b_GRAPHQL {
+public class Task04b_GRAPHQL {
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 
@@ -24,31 +32,31 @@ public class Task07b_GRAPHQL {
             Logger logger = LoggerFactory.getLogger("commercetools");
 
             // TODO:
-            //  Use the GraphQL playground to create a graphql query
+            //  Use GraphQL API to get all product names
             //
 
             GraphQLResponse<ProductQueryResult> responseEntity =
                     apiRoot
                             .graphql()
-                            .query(GraphQL.products(q -> q.limit(3).sort(Collections.singletonList("masterData.current.name.en desc")))
-                                    .projection(p -> p.total().results().id().masterData().current().name("en", null)))
+                            .query(GraphQL.products(q -> q.limit(3).sort(Collections.singletonList("masterData.current.name.en-US asc")))
+                                    .projection(p -> p.total().results().id().masterData().current().name("en-US", null)))
                             .executeBlocking()
                             .getBody();
 
             logger.info("Total products: " + responseEntity.getData().getTotal());
 
             responseEntity.getData().getResults().forEach(result ->
-                    logger.info("Id: " + result.getId() + "Name: " + result.getMasterData().getCurrent().getName()));
+                    logger.info("Id: " + result.getId() + " Name: " + result.getMasterData().getCurrent().getName()));
 
 
 //            // TODO: GET the product assignments in the store using GraphQL
-//
+//            //
 //            String query = "query($storeKey:KeyReferenceInput!) { " +
 //                    "inStore(key:$storeKey) { " +
 //                        "productSelectionAssignments { " +
 //                            "results { " +
 //                            "product { key skus } " +
-//                            "productSelection { name(locale: \"en\") } " +
+//                            "productSelection { name(locale: \"en-US\") } " +
 //                            "variantSelection { skus } " +
 //                        "} " +
 //                    "} " +
@@ -75,7 +83,11 @@ public class Task07b_GRAPHQL {
 //
 //            // Log the product assignments
 //            if (response.getBody() != null && response.getBody().getResults() != null) {
-//                logger.info("Product Assignments: {}", response.getBody().getResults());
+//                response.getBody().getResults().forEach(productAssignment -> {
+//                    logger.info("Product Key: {}, Product SKUs {} ",
+//                            productAssignment.getProduct().getKey(),
+//                            productAssignment.getProduct().getSkus());
+//                    });
 //            } else {
 //                logger.warn("No product assignments found in the response.");
 //            }
