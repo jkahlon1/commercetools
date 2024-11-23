@@ -38,9 +38,9 @@ public class Task04d_LOGIN {
 
 
 
-//            // TODO: GET default shipping address from customer profile
-//            // TODO Optionally add a new address and save it as default for the customer
-//            //
+            // TODO: GET default shipping address from customer profile
+            // TODO Optionally add a new address and save it as default for the customer
+            //
 //            customerService
 //                    .getCustomerByKey(customerKey)
 //                    .thenApply(ApiHttpResponse::getBody)
@@ -50,7 +50,7 @@ public class Task04d_LOGIN {
 //                    )
 //                    .thenAccept(optionalAddress -> {
 //                        Address shippingAddress = optionalAddress.orElseGet(() -> AddressBuilder.of()
-//                                .firstName("First")
+//                                .firstName("ct")
 //                                .lastName("Tester")
 //                                .country("DE")
 //                                .key(customerKey + "-default")

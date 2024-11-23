@@ -29,7 +29,27 @@ public class ClientService {
         Properties props = new Properties();
         props.load(ClientService.class.getResourceAsStream("/dev.properties"));
 
-        // TODO CREATE client
+        String clientId = props.getProperty(prefix + "clientId");
+        String clientSecret = props.getProperty(prefix + "clientSecret");
+        String projectKey = props.getProperty(prefix + "projectKey");
+
+        projectApiRoot = ApiRootBuilder.of()
+                .defaultClient(
+                        ClientCredentials.of()
+                                .withClientId(clientId)
+                                .withClientSecret(clientSecret)
+                                .build(),
+                        ServiceRegion.GCP_EUROPE_WEST1.getOAuthTokenUrl(),
+                        ServiceRegion.GCP_EUROPE_WEST1.getApiUrl()
+                )
+//                .withPolicies(policyBuilder ->
+//                        policyBuilder.withRetry(retryPolicyBuilder ->
+//                                retryPolicyBuilder.maxRetries(3).statusCodes(Arrays.asList(502, 503, 504))))
+//                .withErrorMiddleware(ErrorMiddleware.ExceptionMode.UNWRAP_COMPLETION_EXCEPTION)
+//                .addConcurrentModificationMiddleware()
+//                .addCorrelationIdProvider(() -> projectKey + "/" + UUID.randomUUID())
+                .build(projectKey);
+
         return projectApiRoot;
     }
 

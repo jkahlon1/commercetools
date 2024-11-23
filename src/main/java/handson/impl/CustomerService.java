@@ -103,19 +103,9 @@ public class CustomerService {
             final String password,
             final String anonymousCartId,
             final AnonymousCartSignInMode anonymousCartSignInMode) {
-        CustomerSignin customerSignin = CustomerSigninBuilder.of()
-                .email(customerEmail)
-                .password(password)
-                .anonymousCart(CartResourceIdentifierBuilder.of()
-                        .id(anonymousCartId)
-                        .build())
-                .anonymousCartSignInMode(anonymousCartSignInMode)
-                .build();
-        return apiRoot
-                .inStore(storeKey)
-                .login()
-                .post(customerSignin)
-                .execute();
+
+        return
+                null;
     }
 
     public CompletableFuture<ApiHttpResponse<CustomerToken>> createEmailVerificationToken(
@@ -138,113 +128,12 @@ public class CustomerService {
                 .execute();
     }
 
-    public CompletableFuture<ApiHttpResponse<CustomerToken>> createEmailVerificationToken(final Customer customer, final long timeToLiveInMinutes) {
-
-        return
-            apiRoot
-                .inStore(storeKey)
-                .customers()
-                .emailToken()
-                .post(
-                    customerCreateEmailTokenBuilder -> customerCreateEmailTokenBuilder
-                        .id(customer.getId())
-                        .ttlMinutes(timeToLiveInMinutes)
-                )
-                .execute();
-    }
-
-    public CompletableFuture<ApiHttpResponse<Customer>> verifyEmail(final ApiHttpResponse<CustomerToken> customerTokenApiHttpResponse) {
-
-        final CustomerToken customerToken = customerTokenApiHttpResponse.getBody();
-
-        return
-            apiRoot
-                .inStore(storeKey)
-                .customers()
-                .emailConfirm()
-                .post(
-                    customerEmailVerifyBuilder ->customerEmailVerifyBuilder
-                        .tokenValue(customerToken.getValue())
-                )
-                .execute();
-    }
-
-    public CompletableFuture<ApiHttpResponse<Customer>> verifyEmail(final CustomerToken customerToken) {
-
-        return
-            apiRoot
-                .inStore(storeKey)
-                .customers()
-                .emailConfirm()
-                .post(
-                    customerEmailVerifyBuilder ->customerEmailVerifyBuilder
-                        .tokenValue(customerToken.getValue())
-                    )
-                .execute();
-    }
-
-    public CompletableFuture<ApiHttpResponse<CustomerGroup>> getCustomerGroupByKey(String customerGroupKey) {
-        return
-            apiRoot
-                .customerGroups()
-                .withKey(customerGroupKey)
-                .get()
-                .execute();
-    }
-
-    public CompletableFuture<ApiHttpResponse<Customer>> assignCustomerToCustomerGroup(
-            final String customerKey,
-            final String customerGroupKey) {
-
-        return getCustomerByKey(customerKey)
-            .thenComposeAsync(customerApiHttpResponse ->
-                apiRoot
-                    .inStore(storeKey)
-                    .customers()
-                    .withKey(customerKey)
-                    .post(
-                        customerUpdateBuilder -> customerUpdateBuilder
-                            .version(customerApiHttpResponse.getBody().getVersion())
-                            .plusActions(
-                                customerUpdateActionBuilder -> customerUpdateActionBuilder
-                                    .setCustomerGroupBuilder()
-                                    .customerGroup(customerGroupResourceIdentifierBuilder -> customerGroupResourceIdentifierBuilder.key(customerGroupKey))
-                            )
-                    )
-                    .execute()
-            );
-    }
-
     public CompletableFuture<ApiHttpResponse<Customer>> addAddressToCustomer(
             final String customerKey,
             final Address address) {
 
-        return getCustomerByKey(customerKey)
-                .thenComposeAsync(customerApiHttpResponse ->
-                        apiRoot
-                                .inStore(storeKey)
-                                .customers()
-                                .withKey(customerKey)
-                                .post(
-                                        CustomerUpdateBuilder.of()
-                                                .actions(
-                                                        Arrays.asList(
-                                                                CustomerAddAddressActionBuilder.of()
-                                                                        .address(address)
-                                                                        .build(),
-                                                                CustomerSetDefaultBillingAddressActionBuilder.of()
-                                                                        .addressKey(address.getKey())
-                                                                        .build(),
-                                                                CustomerSetDefaultShippingAddressActionBuilder.of()
-                                                                        .addressKey(address.getKey())
-                                                                        .build()
-                                                        )
-                                                )
-                                                .version(customerApiHttpResponse.getBody().getVersion())
-                                                .build()
-                                )
-                                .execute()
-                );
+        return
+                null;
     }
 
 }

@@ -6,6 +6,7 @@ import com.commercetools.graphql.api.GraphQLData;
 import com.commercetools.graphql.api.GraphQLRequest;
 import com.commercetools.graphql.api.GraphQLResponse;
 import com.commercetools.graphql.api.types.InStore;
+import com.commercetools.graphql.api.types.Product;
 import com.commercetools.graphql.api.types.ProductAssignmentQueryResult;
 import com.commercetools.graphql.api.types.ProductQueryResult;
 import handson.impl.ApiPrefixHelper;
@@ -32,65 +33,67 @@ public class Task04b_GRAPHQL {
             Logger logger = LoggerFactory.getLogger("commercetools");
 
             // TODO:
-            //  Use GraphQL API to get all product names
-            //
+            //  Use GraphQL API to get product name and description withID
+            String query = "query($productId:String!, $locale:Locale!) { " +
+                    "product(id:$productId) { " +
+                        "masterData { " +
+                            "current { " +
+                                "name(locale:$locale)" +
+                                "description(locale:$locale)" +
+                                "slug(locale:$locale)" +
+                            "} " +
+                        "} " +
+                    "} " +
+                "}";
 
-            GraphQLResponse<ProductQueryResult> responseEntity =
-                    apiRoot
-                            .graphql()
-                            .query(GraphQL.products(q -> q.limit(3).sort(Collections.singletonList("masterData.current.name.en-US asc")))
-                                    .projection(p -> p.total().results().id().masterData().current().name("en-US", null)))
-                            .executeBlocking()
-                            .getBody();
+            // Build the variables map
+            Map<String, Object> variables = new HashMap<>();
+            variables.put("productId", "<PRODUCT_ID>");
+            variables.put("locale", "en-US");
 
-            logger.info("Total products: " + responseEntity.getData().getTotal());
+            // Create the GraphQL request
+            GraphQLRequest<Product> queryResultGraphQLRequest = GraphQL
+                    .query(query)
+                    .variables(graphQLVariablesMapBuilder -> graphQLVariablesMapBuilder.values(variables))
+                    .dataMapper(GraphQLData::getProduct)
+                    .build();
 
-            responseEntity.getData().getResults().forEach(result ->
-                    logger.info("Id: " + result.getId() + " Name: " + result.getMasterData().getCurrent().getName()));
+            // Execute the query
+            ApiHttpResponse<Product> response = apiRoot
+                    .graphql()
+                    .query(queryResultGraphQLRequest)
+                    .executeBlocking()
+                    .withBody(GraphQLResponse::getData);
 
+            // Log the product assignments
+            if (response.getBody() != null && response.getBody().getMasterData() != null) {
+                logger.info("Product Name: {}, Product Description {} Slug {}",
+                        response.getBody().getMasterData().getCurrent().getName(),
+                        response.getBody().getMasterData().getCurrent().getDescription(),
+                        response.getBody().getMasterData().getCurrent().getSlug()
+                );
 
-//            // TODO: GET the product assignments in the store using GraphQL
+            } else {
+                logger.warn("No product assignments found in the response.");
+            }
+
+//            // TODO:
+//            //  Use GraphQL API to get all product names
 //            //
-//            String query = "query($storeKey:KeyReferenceInput!) { " +
-//                    "inStore(key:$storeKey) { " +
-//                        "productSelectionAssignments { " +
-//                            "results { " +
-//                            "product { key skus } " +
-//                            "productSelection { name(locale: \"en-US\") } " +
-//                            "variantSelection { skus } " +
-//                        "} " +
-//                    "} " +
-//                "} " +
-//            "}";
 //
-//            // Build the variables map
-//            Map<String, Object> variables = new HashMap<>();
-//            variables.put("storeKey", getStoreKey(apiClientPrefix));
+//            GraphQLResponse<ProductQueryResult> responseEntity =
+//                    apiRoot
+//                            .graphql()
+//                            .query(GraphQL.products(q -> q.limit(3).sort(Collections.singletonList("masterData.current.name.en-US asc")))
+//                                    .projection(p -> p.total().results().id().masterData().current().name("en-US", null)))
+//                            .executeBlocking()
+//                            .getBody();
 //
-//            // Create the GraphQL request
-//            GraphQLRequest<InStore> queryResultGraphQLRequest = GraphQL
-//                    .query(query)
-//                    .variables(graphQLVariablesMapBuilder -> graphQLVariablesMapBuilder.values(variables))
-//                    .dataMapper(GraphQLData::getInStore)
-//                    .build();
+//            logger.info("Total products: " + responseEntity.getData().getTotal());
 //
-//            // Execute the query
-//            ApiHttpResponse<ProductAssignmentQueryResult> response = apiRoot
-//                    .graphql()
-//                    .query(queryResultGraphQLRequest)
-//                    .executeBlocking()
-//                    .withBody(inStoreGraphQLResponse -> inStoreGraphQLResponse.getData().getProductSelectionAssignments());
-//
-//            // Log the product assignments
-//            if (response.getBody() != null && response.getBody().getResults() != null) {
-//                response.getBody().getResults().forEach(productAssignment -> {
-//                    logger.info("Product Key: {}, Product SKUs {} ",
-//                            productAssignment.getProduct().getKey(),
-//                            productAssignment.getProduct().getSkus());
-//                    });
-//            } else {
-//                logger.warn("No product assignments found in the response.");
-//            }
+//            responseEntity.getData().getResults().forEach(result ->
+//                    logger.info("Id: " + result.getId() + " Name: " + result.getMasterData().getCurrent().getName()));
+
         }
     }
 }

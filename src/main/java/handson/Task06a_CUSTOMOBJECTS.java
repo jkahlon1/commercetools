@@ -31,11 +31,11 @@ public class Task06a_CUSTOMOBJECTS {
 
             Map<String, Object> jsonObject = new HashMap<>();
             jsonObject.put("crossSell", Arrays.asList(
-                (Reference.productBuilder().id("product-id").build()),
-                Reference.productBuilder().id("product-id").build()));
+                (Reference.productBuilder().id("<PRODUCT_ID>").build()),
+                Reference.productBuilder().id("<PRODUCT_ID>").build()));
             jsonObject.put("upSell", Arrays.asList(
-                Reference.productBuilder().id("product-id").build(),
-                Reference.productBuilder().id("product-id").build()));
+                Reference.productBuilder().id("<PRODUCT_ID>").build(),
+                Reference.productBuilder().id("<PRODUCT_ID>").build()));
 
             // TODO: CREATE a custom object
             // client.customObjects().post().execute()
