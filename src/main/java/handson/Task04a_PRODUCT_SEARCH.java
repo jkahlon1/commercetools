@@ -15,7 +15,7 @@ import static handson.impl.ClientService.createApiClient;
 import static handson.impl.ClientService.getStoreKey;
 
 
-public class Task04a_PRODUCTS_SEARCH {
+public class Task04a_PRODUCT_SEARCH {
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 
